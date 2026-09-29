@@ -1,48 +1,48 @@
 {
   "deputado_federal": [
-    {"nome": "BISMARK DO CANAL HIPÓCRITAS", "partido": "PODE", "numero": "2026", "foto": "https://placeholder.com"},
-    {"nome": "CRISTIANE LOUREIRO", "partido": "PODE", "numero": "2040", "foto": "https://placeholder.com"},
-    {"nome": "DANILO VISCONTI", "partido": "PODE", "numero": "2000", "foto": "https://placeholder.com"},
-    {"nome": "DRA. SANDRA", "partido": "PODE", "numero": "2002", "foto": "https://placeholder.com"},
-    {"nome": "ELAINE CASAS", "partido": "PODE", "numero": "2090", "foto": "https://placeholder.com"},
-    {"nome": "FERNANDO FERREIRA (GÊMEOS)", "partido": "PODE", "numero": "2080", "foto": "https://placeholder.com"},
-    {"nome": "GEMADA", "partido": "PODE", "numero": "2050", "foto": "https://placeholder.com"},
-    {"nome": "ITO DE SOUZA", "partido": "PODE", "numero": "2055", "foto": "https://placeholder.com"},
-    {"nome": "JOAB DA PESCA", "partido": "PODE", "numero": "2077", "foto": "https://placeholder.com"},
-    {"nome": "LILIANE DA FRADA", "partido": "PODE", "numero": "2007", "foto": "https://placeholder.com"},
-    {"nome": "MELISSA MEDEIROS", "partido": "PODE", "numero": "2030", "foto": "https://placeholder.com"},
-    {"nome": "NEGA GRAZI", "partido": "PODE", "numero": "2014", "foto": "https://placeholder.com"},
-    {"nome": "PAULINHA", "partido": "PODE", "numero": "2020", "foto": "https://placeholder.com"},
-    {"nome": "REGINA GUZZI", "partido": "PODE", "numero": "2021", "foto": "https://placeholder.com"},
-    {"nome": "RICARDO GANEM", "partido": "PODE", "numero": "2010", "foto": "https://placeholder.com"},
-    {"nome": "ROSINEY HORACIO", "partido": "PODE", "numero": "2022", "foto": "https://placeholder.com"},
-    {"nome": "VOLMAR BOSQUETTI", "partido": "PODE", "numero": "2004", "foto": "https://placeholder.com"}
+    {"nome": "BISMARK DO CANAL HIPÓCRITAS", "partido": "PODE", "numero": "2026", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "CRISTIANE LOUREIRO", "partido": "PODE", "numero": "2040", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "DANILO VISCONTI", "partido": "PODE", "numero": "2000", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "DRA. SANDRA", "partido": "PODE", "numero": "2002", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "ELAINE CASAS", "partido": "PODE", "numero": "2090", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "FERNANDO FERREIRA (GÊMEOS)", "partido": "PODE", "numero": "2080", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "GEMADA", "partido": "PODE", "numero": "2050", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "ITO DE SOUZA", "partido": "PODE", "numero": "2055", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "JOAB DA PESCA", "partido": "PODE", "numero": "2077", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "LILIANE DA FRADA", "partido": "PODE", "numero": "2007", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "MELISSA MEDEIROS", "partido": "PODE", "numero": "2030", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "NEGA GRAZI", "partido": "PODE", "numero": "2014", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "PAULINHA", "partido": "PODE", "numero": "2020", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "REGINA GUZZI", "partido": "PODE", "numero": "2021", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "RICARDO GANEM", "partido": "PODE", "numero": "2010", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "ROSINEY HORACIO", "partido": "PODE", "numero": "2022", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "VOLMAR BOSQUETTI", "partido": "PODE", "numero": "2004", "foto": "https://placehold.co/80x80/png?text=SC"}
   ],
   "senador_1": [
-    {"nome": "AFRÂNIO BOPPRÉ", "partido": "PSOL", "numero": "500", "foto": "https://placeholder.com"},
-    {"nome": "ANA LUCIA MACHADO", "partido": "UP", "numero": "800", "foto": "https://placeholder.com"},
-    {"nome": "CARLOS BOLSONARO", "partido": "PL", "numero": "222", "foto": "https://placeholder.com"},
-    {"nome": "CAROL DE TONI", "partido": "PL", "numero": "221", "foto": "https://placeholder.com"},
-    {"nome": "DÉCIO LIMA", "partido": "PT", "numero": "133", "foto": "https://placeholder.com"},
-    {"nome": "ESPERIDIÃO AMIN", "partido": "PP", "numero": "111", "foto": "https://placeholder.com"},
-    {"nome": "LUNELLI", "partido": "MDB", "numero": "155", "foto": "https://placeholder.com"}
+    {"nome": "AFRÂNIO BOPPRÉ", "partido": "PSOL", "numero": "500", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "ANA LUCIA MACHADO", "partido": "UP", "numero": "800", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "CARLOS BOLSONARO", "partido": "PL", "numero": "222", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "CAROL DE TONI", "partido": "PL", "numero": "221", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "DÉCIO LIMA", "partido": "PT", "numero": "133", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "ESPERIDIÃO AMIN", "partido": "PP", "numero": "111", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "LUNELLI", "partido": "MDB", "numero": "155", "foto": "https://placehold.co/80x80/png?text=SC"}
   ],
   "senador_2": [
-    {"nome": "AFRÂNIO BOPPRÉ", "partido": "PSOL", "numero": "500", "foto": "https://placeholder.com"},
-    {"nome": "ANA LUCIA MACHADO", "partido": "UP", "numero": "800", "foto": "https://placeholder.com"},
-    {"nome": "CARLOS BOLSONARO", "partido": "PL", "numero": "222", "foto": "https://placeholder.com"},
-    {"nome": "CAROL DE TONI", "partido": "PL", "numero": "221", "foto": "https://placeholder.com"},
-    {"nome": "DÉCIO LIMA", "partido": "PT", "numero": "133", "foto": "https://placeholder.com"},
-    {"nome": "ESPERIDIÃO AMIN", "partido": "PP", "numero": "111", "foto": "https://placeholder.com"},
-    {"nome": "LUNELLI", "partido": "MDB", "numero": "155", "foto": "https://placeholder.com"}
+    {"nome": "AFRÂNIO BOPPRÉ", "partido": "PSOL", "numero": "500", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "ANA LUCIA MACHADO", "partido": "UP", "numero": "800", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "CARLOS BOLSONARO", "partido": "PL", "numero": "222", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "CAROL DE TONI", "partido": "PL", "numero": "221", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "DÉCIO LIMA", "partido": "PT", "numero": "133", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "ESPERIDIÃO AMIN", "partido": "PP", "numero": "111", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "LUNELLI", "partido": "MDB", "numero": "155", "foto": "https://placehold.co/80x80/png?text=SC"}
   ],
   "governador": [
-    {"nome": "GELSON MERÍSIO", "partido": "PSB", "numero": "40", "foto": "https://placeholder.com"},
-    {"nome": "JOÃO RODRIGUES", "partido": "PSD", "numero": "55", "foto": "https://placeholder.com"},
-    {"nome": "JORGINHO MELLO", "partido": "PL", "numero": "22", "foto": "https://placeholder.com"}
+    {"nome": "GELSON MERÍSIO", "partido": "PSB", "numero": "40", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "JOÃO RODRIGUES", "partido": "PSD", "numero": "55", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "JORGINHO MELLO", "partido": "PL", "numero": "22", "foto": "https://placehold.co/80x80/png?text=SC"}
   ],
   "presidente": [
-    {"nome": "FLÁVIO BOLSONARO", "partido": "PL", "numero": "22", "foto": "https://placeholder.com"},
-    {"nome": "CANDIDATO PARTIDO DOS TRABALHADORES", "partido": "PT", "numero": "13", "foto": "https://placeholder.com"}
+    {"nome": "FLÁVIO BOLSONARO", "partido": "PL", "numero": "22", "foto": "https://placehold.co/80x80/png?text=SC"},
+    {"nome": "CANDIDATO PARTIDO DOS TRABALHADORES", "partido": "PT", "numero": "13", "foto": "https://placehold.co/80x80/png?text=SC"}
   ]
 }

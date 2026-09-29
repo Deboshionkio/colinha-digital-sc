@@ -186,11 +186,13 @@ function salvarColinhaDefinitivo() {
         htmlCargos += `
             <div class="item-cargo fixo">
                 <div class="${escolheu ? 'avatar-candidato' : 'avatar-placeholder'}" style="background-color: ${escolheu ? 'rgba(255, 223, 0, 0.2)' : '#edf1f4'}; border: 3px solid #009c3b;"></div>
-                <div class="cargo-detalhe">
+                                <div class="cargo-detalhe">
                     <span class="label-cargo">${cargo.label}</span>
-                    <strong class="nome-fixo">${escolheu ? escolheu.nome : '________________________'}</strong>
+                    <!-- Reduzido o tamanho do tracejado aqui embaixo -->
+                    <strong class="nome-fixo">${escolheu ? escolheu.nome : '_______________'}</strong>
                     <span class="partido-fixo">${escolheu ? escolheu.partido : ''}</span>
                 </div>
+
                 <div class="blocos-numero">
                     ${blocosHtml}
                 </div>

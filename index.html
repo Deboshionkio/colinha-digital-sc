@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Colinha Eleitoral - Santa Catarina</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -128,7 +128,7 @@
             </div>
         </div>
 
-        <!-- TELA 3: LAYOUT VISUAL DE IMPRESSÃO / PDF (MODAL) -->
+        <!-- TELA 3: LAYOUT VISUAL DE IMPRESSÃO / PDF (MODAL SOBREPOSTO) -->
         <div id="modal-impressao" class="modal-print">
             <div class="print-card-content">
                 <div class="header-print-modal">
@@ -157,15 +157,15 @@
                     </div>
                 </div>
 
-                <!-- Botão de Download Nativo -->
+                <!-- Botão de Download Nativo Corrigido para Mobile -->
                 <button class="btn-disparar-impressao" onclick="gerarPDFColinha()">📥 Baixar Colinha em PDF</button>
             </div>
         </div>
 
     </div>
 
-    <!-- BIBLIOTECA AUTOMÁTICA DE PDF -->
-    <script src="https://cloudflare.com"></script>
+    <!-- LINK DA BIBLIOTECA DE PDF CORRIGIDO (SEM QUEBRAS) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
