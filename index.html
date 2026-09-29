@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colinha Eleitoral - Santa Catarina</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- TELA 1: A COLINHA -->
+        <div id="tela-colinha" class="tela active">
+            <div class="header">
+                <div>
+                    <h1 class="titulo-principal">COLINHA ELEITORAL</h1>
+                    <span class="sub-estado">Santa Catarina</span>
+                </div>
+                <div class="ano-eleicao">
+                    <small>ELEIÇÕES</small>
+                    <strong>2026</strong>
+                </div>
+            </div>
+
+            <div class="turno-info">
+                <span>1º TURNO</span>
+                <span class="badge-votos">6 votos</span>
+            </div>
+
+            <div class="lista-cargos">
+                <!-- Deputado Federal -->
+                <div class="item-cargo" onclick="abrirBusca('deputado_federal', 'DEPUTADO FEDERAL', 4)">
+                    <div class="avatar-placeholder"></div>
+                    <div class="cargo-detalhe">
+                        <span class="label-cargo">DEPUTADO FEDERAL</span>
+                        <span class="selecao-status" id="txt-deputado_federal">Escolher Candidato</span>
+                    </div>
+                    <div class="blocos-numero" id="blocos-deputado_federal">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+
+                <!-- Deputado Estadual (FIXO - Carla Z. Pereira) -->
+                <div class="item-cargo fixo">
+                    <img src="carlinha.png" alt="Carla Z. Pereira" class="avatar-candidato">
+                    <div class="cargo-detalhe">
+                        <span class="label-cargo">DEPUTADO ESTADUAL</span>
+                        <strong class="nome-fixo">Carla Z. Pereira</strong>
+                        <span class="partido-fixo">PODE</span>
+                    </div>
+                    <div class="blocos-numero">
+                        <span>2</span><span>0</span><span>0</span><span>5</span><span>5</span>
+                    </div>
+                </div>
+
+                <!-- Senador 1ª Vaga -->
+                <div class="item-cargo" onclick="abrirBusca('senador_1', 'SENADOR (1ª VAGA)', 3)">
+                    <div class="avatar-placeholder"></div>
+                    <div class="cargo-detalhe">
+                        <span class="label-cargo">SENADOR (1ª VAGA)</span>
+                        <span class="selecao-status" id="txt-senador_1">Escolher Candidato</span>
+                    </div>
+                    <div class="blocos-numero" id="blocos-senador_1">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+
+                <!-- Senador 2ª Vaga -->
+                <div class="item-cargo" onclick="abrirBusca('senador_2', 'SENADOR (2ª VAGA)', 3)">
+                    <div class="avatar-placeholder"></div>
+                    <div class="cargo-detalhe">
+                        <span class="label-cargo">SENADOR (2ª VAGA)</span>
+                        <span class="selecao-status" id="txt-senador_2">Escolher Candidato</span>
+                    </div>
+                    <div class="blocos-numero" id="blocos-senador_2">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+
+                <!-- Governador -->
+                <div class="item-cargo" onclick="abrirBusca('governador', 'GOVERNADOR', 2)">
+                    <div class="avatar-placeholder"></div>
+                    <div class="cargo-detalhe">
+                        <span class="label-cargo">GOVERNADOR</span>
+                        <span class="selecao-status" id="txt-governador">Escolher Candidato</span>
+                    </div>
+                    <div class="blocos-numero" id="blocos-governador">
+                        <span></span><span></span>
+                    </div>
+                </div>
+
+                <!-- Presidente -->
+                <div class="item-cargo" onclick="abrirBusca('presidente', 'PRESIDENTE', 2)">
+                    <div class="avatar-placeholder"></div>
+                    <div class="cargo-detalhe">
+                        <span class="label-cargo">PRESIDENTE</span>
+                        <span class="selecao-status" id="txt-presidente">Escolher Candidato</span>
+                    </div>
+                    <div class="blocos-numero" id="blocos-presidente">
+                        <span></span><span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTÕES DE AÇÃO -->
+            <div class="container-acoes">
+                <button class="btn-salvar" onclick="salvarColinhaDefinitivo()">💾 Salvar Minha Colinha</button>
+                <button class="btn-limpar" onclick="limparColinha()">🔄 Limpar Tudo</button>
+            </div>
+        </div>
+
+        <!-- TELA 2: BUSCA DE CANDIDATOS -->
+        <div id="tela-busca" class="tela">
+            <div class="header-busca">
+                <button class="btn-voltar" onclick="fecharBusca()">← Voltar</button>
+                <div class="titulo-busca-cargo">
+                    <span id="busca-nome-cargo">DEPUTADO FEDERAL</span>
+                    <small id="busca-digitos">4 dígitos</small>
+                </div>
+            </div>
+
+            <div class="container-pesquisa">
+                <input type="text" id="input-pesquisa" placeholder="busque por nome, partido ou número" oninput="filtrarCandidatos()">
+            </div>
+
+            <div class="lista-resultados" id="lista-resultados">
+                <!-- Populado dinamicamente via JS -->
+            </div>
+        </div>
+
+        <!-- TELA 3: LAYOUT VISUAL DE IMPRESSÃO / PDF (MODAL) -->
+        <div id="modal-impressao" class="modal-print">
+            <div class="print-card-content">
+                <div class="header-print-modal">
+                    <h2>Sua Colinha Digital</h2>
+                    <button class="btn-fechar-modal" onclick="fecharModalImpressao()">✕ Fechar</button>
+                </div>
+                
+                <!-- Área que vira o PDF idêntica ao layout do Paint -->
+                <div id="area-impressao-conteudo" class="print-area-design">
+                    <div class="header-print">
+                        <div>
+                            <h1 class="titulo-principal">COLINHA ELEITORAL</h1>
+                            <span class="sub-estado">Santa Catarina</span>
+                        </div>
+                        <div class="ano-eleicao">
+                            <small>ELEIÇÕES</small>
+                            <strong>2026</strong>
+                        </div>
+                    </div>
+                    <div class="turno-info">
+                        <span>1º TURNO</span>
+                        <span class="badge-votos">6 votos</span>
+                    </div>
+                    <div class="lista-cargos" id="lista-cargos-print">
+                        <!-- Preenchido dinamicamente via JS -->
+                    </div>
+                </div>
+
+                <!-- Botão de Download Nativo -->
+                <button class="btn-disparar-impressao" onclick="gerarPDFColinha()">📥 Baixar Colinha em PDF</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BIBLIOTECA AUTOMÁTICA DE PDF -->
+    <script src="https://cloudflare.com"></script>
+    <script src="script.js"></script>
+</body>
+</html>
