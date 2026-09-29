@@ -14,13 +14,11 @@ let colinhaSalva = {
 document.addEventListener('DOMContentLoaded', () => {
     // Carrega a base de dados simulada de SC
     fetch('candidatos-sc.json')
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
             candidatosDados = data;
-            // Carrega os dados previamente salvos pelo navegador
-            carregarColinhaSalva();
         })
-        .catch(err => console.error('Erro ao carregar candidatos de SC:', err));
+        .catch(err => console.error('Erro ao carregar JSON:', err));
 });
 
 function abrirBusca(cargo, nomeExibicao, digitos) {
@@ -34,7 +32,6 @@ function abrirBusca(cargo, nomeExibicao, digitos) {
     document.getElementById('tela-colinha').classList.remove('active');
     document.getElementById('tela-busca').classList.add('active');
 
-    // Estado Inicial do Paint: Aviso centralizado e link para a lista
     const container = document.getElementById('lista-resultados');
     container.innerHTML = `
         <div id="mensagem-vazia" style="text-align:center; margin-top:40px; font-family:sans-serif;">
@@ -118,8 +115,6 @@ function selecionarCandidato(candidato) {
 
     colinhaSalva[cargoAtualAtivo] = candidato;
     atualizarInterfaceCargo(cargoAtualAtivo, candidato);
-    
-    localStorage.setItem('colinha_eleitoral_2026', JSON.stringify(colinhaSalva));
     fecharBusca();
 }
 
@@ -150,18 +145,6 @@ function atualizarInterfaceCargo(cargo, candidato) {
             const span = document.createElement('span');
             containerBlocos.appendChild(span);
         }
-    }
-}
-
-function carregarColinhaSalva() {
-    const dadosMemoria = localStorage.getItem('colinha_eleitoral_2026');
-    if (dadosMemoria) {
-        colinhaSalva = JSON.parse(dadosMemoria);
-        Object.keys(colinhaSalva).forEach(cargo => {
-            if (colinhaSalva[cargo]) {
-                atualizarInterfaceCargo(cargo, colinhaSalva[cargo]);
-            }
-        });
     }
 }
 
@@ -205,7 +188,7 @@ function salvarColinhaDefinitivo() {
                 <div class="${escolheu ? 'avatar-candidato' : 'avatar-placeholder'}" style="background-color: ${escolheu ? 'rgba(255, 223, 0, 0.2)' : '#edf1f4'}; border: 3px solid #009c3b;"></div>
                 <div class="cargo-detalhe">
                     <span class="label-cargo">${cargo.label}</span>
-                    <strong class="nome-fixo">${escolheu ? escolheu.nome : 'Não selecionado'}</strong>
+                    <strong class="nome-fixo">${escolheu ? escolheu.nome : '________________________'}</strong>
                     <span class="partido-fixo">${escolheu ? escolheu.partido : ''}</span>
                 </div>
                 <div class="blocos-numero">
@@ -223,13 +206,14 @@ function fecharModalImpressao() {
     document.getElementById('modal-impressao').classList.remove('active');
 }
 
+// 💾 FUNÇÃO RECONSTITUÍDA E SEGURA PARA DOWNLOAD DO PDF
 function gerarPDFColinha() {
     const elemento = document.getElementById('area-impressao-conteudo');
     const opcoes = {
         margin:       10,
         filename:     'minha-colinha-2026.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
+        image:        { type: 'jpeg', quality: 1.0 },
+        html2canvas:  { scale: 3, useCORS: true, letterRendering: true, scrollY: 0, scrollX: 0 },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
     html2pdf().set(opcoes).from(elemento).save();
@@ -237,7 +221,6 @@ function gerarPDFColinha() {
 
 function limparColinha() {
     if (confirm("Deseja realmente limpar todos os campos selecionados?")) {
-        localStorage.removeItem('colinha_eleitoral_2026');
         colinhaSalva = { deputado_federal: null, senador_1: null, senador_2: null, governador: null, presidente: null };
         Object.keys(colinhaSalva).forEach(cargo => {
             atualizarInterfaceCargo(cargo, null);
