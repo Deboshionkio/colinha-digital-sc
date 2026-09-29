@@ -150,8 +150,9 @@ function atualizarInterfaceCargo(cargo, candidato) {
 
 function salvarColinhaDefinitivo() {
     const containerPrint = document.getElementById('lista-cargos-print');
-    containerPrint.innerHTML = ''; 
+    containerPrint.innerHTML = ''; // Limpa o espelho anterior
 
+    // 1. Inclui a Carla Z. Pereira como campo fixo no topo da amostragem do PDF
     let htmlCargos = `
         <div class="item-cargo fixo">
             <img src="carlinha.png" alt="Carla Z. Pereira" class="avatar-candidato">
@@ -183,16 +184,17 @@ function salvarColinhaDefinitivo() {
             blocosHtml += `<span>${digitosArray[i] || ''}</span>`;
         }
 
+        // AQUI ESTÁ A MUDANÇA: Substituído o tracejado fixo pelo campo <input> de digitação direta!
         htmlCargos += `
             <div class="item-cargo fixo">
                 <div class="${escolheu ? 'avatar-candidato' : 'avatar-placeholder'}" style="background-color: ${escolheu ? 'rgba(255, 223, 0, 0.2)' : '#edf1f4'}; border: 3px solid #009c3b;"></div>
-                                <div class="cargo-detalhe">
+                <div class="cargo-detalhe">
                     <span class="label-cargo">${cargo.label}</span>
-                    <!-- Reduzido o tamanho do tracejado aqui embaixo -->
-                    <strong class="nome-fixo">${escolheu ? escolheu.nome : '_______________'}</strong>
+                    <strong class="nome-fixo">
+                        ${escolheu ? escolheu.nome : `<input type="text" placeholder="Digite o nome..." style="border: none; border-bottom: 1px solid #999; font-weight: bold; color: #0d3b66; background: transparent; width: 100%; font-size: 0.95rem; outline: none; padding: 2px 0;">`}
+                    </strong>
                     <span class="partido-fixo">${escolheu ? escolheu.partido : ''}</span>
                 </div>
-
                 <div class="blocos-numero">
                     ${blocosHtml}
                 </div>
@@ -202,30 +204,4 @@ function salvarColinhaDefinitivo() {
 
     containerPrint.innerHTML = htmlCargos;
     document.getElementById('modal-impressao').classList.add('active');
-}
-
-function fecharModalImpressao() {
-    document.getElementById('modal-impressao').classList.remove('active');
-}
-
-// 💾 FUNÇÃO RECONSTITUÍDA E SEGURA PARA DOWNLOAD DO PDF
-function gerarPDFColinha() {
-    const elemento = document.getElementById('area-impressao-conteudo');
-    const opcoes = {
-        margin:       10,
-        filename:     'minha-colinha-2026.pdf',
-        image:        { type: 'jpeg', quality: 1.0 },
-        html2canvas:  { scale: 3, useCORS: true, letterRendering: true, scrollY: 0, scrollX: 0 },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-    html2pdf().set(opcoes).from(elemento).save();
-}
-
-function limparColinha() {
-    if (confirm("Deseja realmente limpar todos os campos selecionados?")) {
-        colinhaSalva = { deputado_federal: null, senador_1: null, senador_2: null, governador: null, presidente: null };
-        Object.keys(colinhaSalva).forEach(cargo => {
-            atualizarInterfaceCargo(cargo, null);
-        });
-    }
 }
