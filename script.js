@@ -1,21 +1,234 @@
-let candidatosDados={},cargoAtualAtivo='',qtdDigitosAtual=0,colinhaSalva={deputado_federal:null,senador_1:null,senador_2:null,governador:null,presidente:null};
-document.addEventListener('DOMContentLoaded',()=>{fetch('candidatos-sc.json').then(r=>{if(!r.ok)throw new Error(`Falha ao carregar candidatos: ${r.status}`);return r.json();}).then(d=>{candidatosDados=d;carregarColinhaSalva();}).catch(e=>console.error(e));});
-function abrirBusca(c,n,d){cargoAtualAtivo=c;qtdDigitosAtual=d;document.getElementById('busca-nome-cargo').textContent=n;document.getElementById('busca-digitos').textContent=`${d} dígitos`;document.getElementById('input-pesquisa').value='';document.getElementById('tela-colinha').classList.remove('active');document.getElementById('tela-busca').classList.add('active');document.getElementById('lista-resultados').innerHTML=`<div id="mensagem-vazia" style="text-align:center;margin-top:40px;font-family:sans-serif;"><p style="color:#777;font-size:0.95rem;margin-bottom:12px;">Nenhum candidato encontrado.</p><a href="#" id="btn-ver-lista" style="color:#2ecc71;font-weight:bold;text-decoration:none;font-size:1.05rem;" onclick="mostrarListaCompleta(event)">Clique para ver a lista</a></div>`;}
-function fecharBusca(){document.getElementById('tela-busca').classList.remove('active');document.getElementById('tela-colinha').classList.add('active');}
-function mostrarListaCompleta(e){if(e)e.preventDefault();renderizarLista(candidatosDados[cargoAtualAtivo]||[]);}
-function renderizarLista(l){const c=document.getElementById('lista-resultados');c.innerHTML='';l.sort((a,b)=>a.nome.localeCompare(b.nome));if(l.length===0){c.innerHTML=`<div id="mensagem-vazia" style="text-align:center;margin-top:40px;"><p style="color:#777;font-size:0.95rem;margin-bottom:12px;">Nenhum candidato encontrado.</p><a href="#" id="btn-ver-lista" style="color:#2ecc71;font-weight:bold;text-decoration:none;font-size:1.05rem;" onclick="mostrarListaCompleta(event)">Clique para ver a lista</a></div>`;return;}
-l.forEach(cand=>{const k=document.createElement('div');k.className='card-resultado';k.onclick=()=>selecionarCandidato(cand);k.innerHTML=`<img src="${cand.foto}" class="img-resultado" alt="${cand.nome}"><div class="info-resultado"><span class="nome">${cand.nome}</span><span class="partido">${cand.partido}</span></div><div class="numero-resultado">${cand.numero}</div>`;c.appendChild(k);});}
-function filtrarCandidatos(){const t=document.getElementById('input-pesquisa').value.toLowerCase();if(t.trim()===''){abrirBusca(cargoAtualAtivo,document.getElementById('busca-nome-cargo').textContent,qtdDigitosAtual);return;}
-renderizarLista((candidatosDados[cargoAtualAtivo]||[]).filter(c=>c.nome.toLowerCase().includes(t)||c.partido.toLowerCase().includes(t)||c.numero.includes(t)));}
-function selecionarCandidato(cand){if(cargoAtualAtivo==='senador_1'&&colinhaSalva.senador_2&&colinhaSalva.senador_2.numero===cand.numero){alert('Aviso: Candidato já selecionado na 2ª vaga.');return;}
-if(cargoAtualAtivo==='senador_2'&&colinhaSalva.senador_1&&colinhaSalva.senador_1.numero===cand.numero){alert('Aviso: Candidato já selecionado na 1ª vaga.');return;}
-colinhaSalva[cargoAtualAtivo]=cand;atualizarInterfaceCargo(cargoAtualAtivo,cand);localStorage.setItem('colinha_eleitoral_2026',JSON.stringify(colinhaSalva));fecharBusca();}
-function atualizarInterfaceCargo(c,cand){const t=document.getElementById(`txt-${c}`),b=document.getElementById(`blocos-${c}`);if(!b)return;const d=c==='deputado_federal'?4:(c.startsWith('senador')?3:2);if(cand){t.textContent=`${cand.nome} (${cand.partido})`;t.style.color='#0d3b66';b.innerHTML='';const arr=cand.numero.split('');for(let i=0;i<d;i++){const s=document.createElement('span');s.textContent=arr[i]||'';b.appendChild(s);}}else{t.textContent='Escolher Candidato';t.style.color='#2ecc71';b.innerHTML='';for(let i=0;i<d;i++)b.appendChild(document.createElement('span'));}}
-function carregarColinhaSalva(){const m=localStorage.getItem('colinha_eleitoral_2026');if(!m)return;try{const dadosSalvos=JSON.parse(m);if(!dadosSalvos||typeof dadosSalvos!=='object')throw new Error('Formato inválido');colinhaSalva={...colinhaSalva,...dadosSalvos};Object.keys(colinhaSalva).forEach(c=>{if(colinhaSalva[c])atualizarInterfaceCargo(c,colinhaSalva[c]);});}catch(e){console.warn('Colinha salva inválida; usando campos vazios.',e);localStorage.removeItem('colinha_eleitoral_2026');}}
-function salvarColinhaDefinitivo(){const c=document.getElementById('lista-cargos-print');c.innerHTML=`<div class="item-cargo fixo"><img src="carlinha.png" alt="Carla Z. Pereira" class="avatar-candidato"><div class="cargo-detalhe"><span class="label-cargo">DEPUTADO ESTADUAL</span><strong class="nome-fixo">Carla Z. Pereira</strong><span class="partido-fixo">PODE</span></div><div class="blocos-numero"><span>2</span><span>0</span><span>0</span><span>5</span><span>5</span></div></div>`;
-[{k:'deputado_federal',l:'DEPUTADO FEDERAL',d:4},{k:'senador_1',l:'SENADOR (1ª VAGA)',d:3},{k:'senador_2',l:'SENADOR (2ª VAGA)',d:3},{k:'governador',l:'GOVERNADOR',d:2},{k:'presidente',l:'PRESIDENTE',d:2}].forEach(cargo=>{const e=colinhaSalva[cargo.k];let blHtml='';const arr=e?e.numero.split(''):[];for(let i=0;i<cargo.d;i++)blHtml+=`<span>${arr[i]||''}</span>`;
-c.innerHTML+=`<div class="item-cargo fixo"><div class="${e?'avatar-candidato':'avatar-placeholder'}" style="background-color:${e?'rgba(255,223,0,0.2)':'#edf1f4'};border:3px solid #009c3b;"></div><div class="cargo-detalhe"><span class="label-cargo">${cargo.l}</span><strong class="nome-fixo">${e?e.nome:'_______________'}</strong><span class="partido-fixo">${e?e.partido:''}</span></div><div class="blocos-numero">${blHtml}</div></div>`;});
-document.getElementById('modal-impressao').classList.add('active');}
-function fecharModalImpressao(){document.getElementById('modal-impressao').classList.remove('active');}
-function limparColinha(){if(confirm("Deseja limpar todos os campos?")){localStorage.removeItem('colinha_eleitoral_2026');colinhaSalva={deputado_federal:null,senador_1:null,senador_2:null,governador:null,presidente:null};['deputado_federal','senador_1','senador_2','governador','presidente'].forEach(c=>atualizarInterfaceCargo(c,null));window.location.reload();}}
-function gerarPDFColinha(){if(typeof va!=='undefined'){va('event',{name:'download_colinha'});}if(typeof gtag==='function'){gtag('event','download_png',{'event_category':'Engajamento','event_label':'Minha Colinha 2026'});}const e=document.getElementById('area-impressao-conteudo');html2pdf().set({margin:5,filename:'minha-colinha-2026.png',image:{type:'png',quality:1.0},html2canvas:{scale:3,useCORS:true,letterRendering:true,scrollY:0,scrollX:0,width:e.clientWidth},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(e).outputImg('img').then(img=>{const a=document.createElement('a');a.href=img.src;a.download='minha-colinha-2026.png';a.click();});}
+let candidatosDados = {},
+    cargoAtualAtivo = '',
+    qtdDigitosAtual = 0,
+    colinhaSalva = {
+        deputado_federal: null,
+        senador_1: null,
+        senador_2: null,
+        governador: null,
+        presidente: null
+    };
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('candidatos-sc.json')
+        .then(r => r.json())
+        .then(d => {
+            candidatosDados = d;
+            carregarColinhaSalva();
+        })
+        .catch(e => console.error('Erro ao carregar candidatos:', e));
+});
+
+function abrirBusca(c, n, d) {
+    cargoAtualAtivo = c;
+    qtdDigitosAtual = d;
+    document.getElementById('busca-nome-cargo').textContent = n;
+    document.getElementById('busca-digitos').textContent = `${d} dígitos`;
+    document.getElementById('input-pesquisa').value = '';
+    document.getElementById('tela-colinha').classList.remove('active');
+    document.getElementById('tela-busca').classList.add('active');
+    document.getElementById('lista-resultados').innerHTML = `
+        <div id="mensagem-vazia" style="text-align:center;margin-top:40px;font-family:sans-serif;">
+            <p style="color:#777;font-size:0.95rem;margin-bottom:12px;">Nenhum candidato encontrado.</p>
+            <a href="#" id="btn-ver-lista" style="color:#2ecc71;font-weight:bold;text-decoration:none;font-size:1.05rem;" onclick="mostrarListaCompleta(event)">Clique para ver a lista</a>
+        </div>`;
+}
+
+function fecharBusca() {
+    document.getElementById('tela-busca').classList.remove('active');
+    document.getElementById('tela-colinha').classList.add('active');
+}
+
+function mostrarListaCompleta(e) {
+    if (e) e.preventDefault();
+    renderizarLista(candidatosDados[cargoAtualAtivo] || []);
+}
+
+function renderizarLista(l) {
+    const c = document.getElementById('lista-resultados');
+    c.innerHTML = '';
+    l.sort((a, b) => a.nome.localeCompare(b.nome));
+
+    if (l.length === 0) {
+        c.innerHTML = `
+            <div id="mensagem-vazia" style="text-align:center;margin-top:40px;">
+                <p style="color:#777;font-size:0.95rem;margin-bottom:12px;">Nenhum candidato encontrado.</p>
+                <a href="#" id="btn-ver-lista" style="color:#2ecc71;font-weight:bold;text-decoration:none;font-size:1.05rem;" onclick="mostrarListaCompleta(event)">Clique para ver a lista</a>
+            </div>`;
+        return;
+    }
+
+    l.forEach(cand => {
+        const k = document.createElement('div');
+        k.className = 'card-resultado';
+        k.onclick = () => selecionarCandidato(cand);
+        k.innerHTML = `
+            <div class="avatar-placeholder"></div>
+            <div class="info-resultado">
+                <span class="nome" title="${cand.nome}">${cand.nome}</span>
+                <span class="partido">${cand.partido}</span>
+            </div>
+            <div class="numero-resultado">${cand.numero}</div>`;
+        c.appendChild(k);
+    });
+}
+
+function filtrarCandidatos() {
+    const t = document.getElementById('input-pesquisa').value.toLowerCase();
+    if (t.trim() === '') {
+        abrirBusca(cargoAtualAtivo, document.getElementById('busca-nome-cargo').textContent, qtdDigitosAtual);
+        return;
+    }
+    renderizarLista((candidatosDados[cargoAtualAtivo] || []).filter(c =>
+        c.nome.toLowerCase().includes(t) || c.partido.toLowerCase().includes(t) || c.numero.includes(t)
+    ));
+}
+
+function selecionarCandidato(cand) {
+    if (cargoAtualAtivo === 'senador_1' && colinhaSalva.senador_2 && colinhaSalva.senador_2.numero === cand.numero) {
+        alert('Aviso: Candidato já selecionado na 2ª vaga.');
+        return;
+    }
+    if (cargoAtualAtivo === 'senador_2' && colinhaSalva.senador_1 && colinhaSalva.senador_1.numero === cand.numero) {
+        alert('Aviso: Candidato já selecionado na 1ª vaga.');
+        return;
+    }
+
+    colinhaSalva[cargoAtualAtivo] = cand;
+    atualizarInterfaceCargo(cargoAtualAtivo, cand);
+    localStorage.setItem('colinha_eleitoral_2026', JSON.stringify(colinhaSalva));
+    fecharBusca();
+}
+
+function atualizarInterfaceCargo(c, cand) {
+    const t = document.getElementById(`txt-${c}`),
+          b = document.getElementById(`blocos-${c}`);
+    if (!b) return;
+
+    const d = c === 'deputado_federal' ? 4 : (c.startsWith('senador') ? 3 : 2);
+
+    if (cand) {
+        t.textContent = `${cand.nome} (${cand.partido})`;
+        t.title = `${cand.nome} (${cand.partido})`;
+        t.style.color = '#0d3b66';
+        b.innerHTML = '';
+        const arr = cand.numero.split('');
+        for (let i = 0; i < d; i++) {
+            const s = document.createElement('span');
+            s.textContent = arr[i] || '';
+            b.appendChild(s);
+        }
+    } else {
+        t.textContent = 'Escolher Candidato';
+        t.removeAttribute('title');
+        t.style.color = '#2ecc71';
+        b.innerHTML = '';
+        for (let i = 0; i < d; i++) {
+            b.appendChild(document.createElement('span'));
+        }
+    }
+}
+
+function carregarColinhaSalva() {
+    const m = localStorage.getItem('colinha_eleitoral_2026');
+    if (m) {
+        colinhaSalva = JSON.parse(m);
+        Object.keys(colinhaSalva).forEach(c => {
+            if (colinhaSalva[c]) atualizarInterfaceCargo(c, colinhaSalva[c]);
+        });
+    }
+}
+
+function salvarColinhaDefinitivo() {
+    const c = document.getElementById('lista-cargos-print');
+    c.innerHTML = `
+        <div class="item-cargo fixo">
+            <img src="carlinha.png" alt="Carla Z. Pereira" class="avatar-candidato">
+            <div class="cargo-detalhe">
+                <span class="label-cargo">DEPUTADO ESTADUAL</span>
+                <strong class="nome-fixo" title="Carla Z. Pereira">Carla Z. Pereira</strong>
+                <span class="partido-fixo">PODE</span>
+            </div>
+            <div class="blocos-numero">
+                <span>2</span><span>0</span><span>0</span><span>5</span><span>5</span>
+            </div>
+        </div>`;
+
+    const cargosOrdem = [
+        { k: 'deputado_federal', l: 'DEPUTADO FEDERAL', d: 4 },
+        { k: 'senador_1', l: 'SENADOR (1ª VAGA)', d: 3 },
+        { k: 'senador_2', l: 'SENADOR (2ª VAGA)', d: 3 },
+        { k: 'governador', l: 'GOVERNADOR', d: 2 },
+        { k: 'presidente', l: 'PRESIDENTE', d: 2 }
+    ];
+
+    cargosOrdem.forEach(cargo => {
+        const e = colinhaSalva[cargo.k];
+        let blHtml = '';
+        const arr = e ? e.numero.split('') : [];
+        for (let i = 0; i < cargo.d; i++) {
+            blHtml += `<span>${arr[i] || ''}</span>`;
+        }
+
+        const nomeExibicao = e ? e.nome : '_______________';
+        const partidoExibicao = e ? e.partido : '';
+
+        c.innerHTML += `
+            <div class="item-cargo fixo">
+                <div class="avatar-placeholder" style="border:3px solid #009c3b;"></div>
+                <div class="cargo-detalhe">
+                    <span class="label-cargo">${cargo.l}</span>
+                    <strong class="nome-fixo" title="${e ? e.nome : ''}">${nomeExibicao}</strong>
+                    <span class="partido-fixo">${partidoExibicao}</span>
+                </div>
+                <div class="blocos-numero">${blHtml}</div>
+            </div>`;
+    });
+
+    document.getElementById('modal-impressao').classList.add('active');
+}
+
+function fecharModalImpressao() {
+    document.getElementById('modal-impressao').classList.remove('active');
+}
+
+function gerarPDFColinha() {
+    if (typeof va !== 'undefined') { va('event', { name: 'download_colinha' }); }
+    if (typeof gtag === 'function') { gtag('event', 'download_png', { 'event_category': 'Engajamento', 'event_label': 'Minha Colinha 2026' }); }
+
+    const e = document.getElementById('area-impressao-conteudo');
+    const modal = document.getElementById('modal-impressao');
+
+    // Reseta o scroll para evitar corte por deslocamento de tela
+    if (modal) modal.scrollTop = 0;
+    window.scrollTo(0, 0);
+
+    html2canvas(e, {
+        scale: 3,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: 1200
+    }).then(canvas => {
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png', 1.0);
+        a.download = 'minha-colinha-2026.png';
+        a.click();
+    }).catch(err => console.error('Erro ao gerar imagem:', err));
+}
+
+function limparColinha() {
+    if (confirm("Deseja limpar todos os campos?")) {
+        localStorage.removeItem('colinha_eleitoral_2026');
+        colinhaSalva = { deputado_federal: null, senador_1: null, senador_2: null, governador: null, presidente: null };
+        ['deputado_federal', 'senador_1', 'senador_2', 'governador', 'presidente'].forEach(c => atualizarInterfaceCargo(c, null));
+    }
+}
+
+function limparColinhaEFechar() {
+    localStorage.removeItem('colinha_eleitoral_2026');
+    colinhaSalva = { deputado_federal: null, senador_1: null, senador_2: null, governador: null, presidente: null };
+    ['deputado_federal', 'senador_1', 'senador_2', 'governador', 'presidente'].forEach(c => atualizarInterfaceCargo(c, null));
+    fecharModalImpressao();
+}

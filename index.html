@@ -45,7 +45,7 @@
                     <img src="carlinha.png" alt="Carla Z. Pereira" class="avatar-candidato">
                     <div class="cargo-detalhe">
                         <span class="label-cargo">DEPUTADO ESTADUAL</span>
-                        <strong class="nome-fixo">Carla Z. Pereira</strong>
+                        <strong class="nome-fixo" title="Carla Z. Pereira">Carla Z. Pereira</strong>
                         <span class="partido-fixo">PODE</span>
                     </div>
                     <div class="blocos-numero">
@@ -128,15 +128,16 @@
             </div>
         </div>
 
-        <!-- TELA 3: LAYOUT VISUAL DE IMPRESSÃO / PDF (MODAL SOBREPOSTO) -->
+        <!-- TELA 3: LAYOUT VISUAL DE IMPRESSÃO / PNG (MODAL SOBREPOSTO) -->
         <div id="modal-impressao" class="modal-print">
             <div class="print-card-content">
-                <div class="header-print-modal">
-                    <h2>Sua Colinha Digital</h2>
-                    <button class="btn-fechar-modal" onclick="fecharModalImpressao()"> ← Voltar</button>
+                <div class="header-print-modal" style="display: flex; justify-content: space-between; align-items: center; width: 100%; position: relative; padding: 10px 0;">
+                    <button class="btn-voltar-modal" onclick="fecharModalImpressao()" style="background: #7f8c8d; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; gap: 5px;">&larr; Voltar</button>
+                    <h2 style="font-size: 1.3rem; color: #0d3b66; margin: 0;">Sua Colinha</h2>
+                    <button class="btn-x-fechar" onclick="limparColinhaEFechar()" style="background: none; border: none; color: #c0392b; font-size: 1.5rem; font-weight: bold; cursor: pointer; padding: 4px 8px; line-height: 1;">&times;</button>
                 </div>
-                
-                <!-- Área que vira o PDF idêntica ao layout do Paint -->
+
+                <!-- Área capturada para virar a imagem PNG -->
                 <div id="area-impressao-conteudo" class="print-area-design">
                     <div class="header-print">
                         <div>
@@ -157,24 +158,24 @@
                     </div>
                 </div>
 
-                <!-- Botão de Download Nativo Corrigido para Mobile -->
+                <!-- Botão de Download Simplificado -->
                 <button class="btn-disparar-impressao" onclick="gerarPDFColinha()">📥 Baixar Colinha</button>
             </div>
         </div>
 
     </div>
 
-    <!-- LINK DA BIBLIOTECA DE PDF CORRIGIDO (SEM QUEBRAS) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
+    <!-- CDN OFICIAL DO HTML2CANVAS (CORRIGIDO) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="script.js"></script>
-        <script async src="https://googletagmanager.com"></script>
+
+    <!-- GLOBAL TRACKING TAG (GOOGLE ANALYTICS) -->
+    <script async src="https://googletagmanager.com"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-R7NYELPVQ3');
     </script>
-
 </body>
 </html>

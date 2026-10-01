@@ -63,6 +63,7 @@ body {
 
 .ano-eleicao {
     text-align: right;
+    flex-shrink: 0;
 }
 
 .ano-eleicao small {
@@ -82,6 +83,7 @@ body {
 .turno-info {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: 20px 0 10px 0;
     color: var(--primary-blue);
     font-weight: bold;
@@ -94,6 +96,7 @@ body {
     padding: 3px 10px;
     border-radius: 12px;
     font-size: 0.75rem;
+    flex-shrink: 0;
 }
 
 /* Itens de Cargo */
@@ -105,6 +108,7 @@ body {
     cursor: pointer;
     transition: background 0.2s;
     box-sizing: border-box;
+    width: 100%;
 }
 
 .item-cargo:hover {
@@ -129,16 +133,22 @@ body {
     flex-shrink: 0;
 }
 
+/* Coluna de texto com limite flexível e margem */
 .cargo-detalhe {
     flex: 1;
+    min-width: 0; /* Essencial para o overflow:hidden e text-overflow funcionarem */
     display: flex;
     flex-direction: column;
+    margin-right: 10px;
 }
 
 .label-cargo {
     font-size: 0.7rem;
     font-weight: 700;
     color: #8c9ba5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .selecao-status {
@@ -146,22 +156,35 @@ body {
     color: var(--text-green);
     font-weight: 600;
     margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
 }
 
 .nome-fixo {
     font-size: 0.95rem;
     color: var(--primary-blue);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
 }
 
 .partido-fixo {
     font-size: 0.75rem;
     color: #777;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
 }
 
 /* Blocos de Número */
 .blocos-numero {
     display: flex;
     gap: 4px;
+    flex-shrink: 0; /* Impede os números de serem espremidos ou empurrados */
 }
 
 .blocos-numero span {
@@ -176,6 +199,7 @@ body {
     color: var(--primary-blue);
     background: #fbfbfc;
     font-size: 1rem;
+    box-sizing: border-box;
 }
 
 /* Tela de Busca */
@@ -245,10 +269,13 @@ body {
     margin-right: 12px;
     border: 2px solid var(--br-green);
     background-color: var(--br-yellow);
+    flex-shrink: 0;
 }
 
 .info-resultado {
     flex: 1;
+    min-width: 0;
+    margin-right: 8px;
 }
 
 .info-resultado .nome {
@@ -256,11 +283,18 @@ body {
     color: var(--primary-blue);
     font-size: 0.9rem;
     display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .info-resultado .partido {
     font-size: 0.75rem;
     color: #777;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
 }
 
 .numero-resultado {
@@ -268,6 +302,7 @@ body {
     color: var(--primary-blue);
     font-size: 1.1rem;
     letter-spacing: 0.5px;
+    flex-shrink: 0;
 }
 
 /* Botões de Ação Finais */
@@ -308,7 +343,7 @@ body {
     cursor: pointer;
 }
 
-/* MODAL MOBILE-FIRST SOBREPOSTO (Ocupa a tela cheia sem espremer) */
+/* MODAL MOBILE-FIRST SOBREPOSTO */
 .modal-print {
     display: none;
     position: fixed;
@@ -327,12 +362,13 @@ body {
     display: block;
 }
 
+/* Container do modal travado para evitar colapso no canvas */
 .print-card-content {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 100%;
-    max-width: 380px;
+    width: 380px;
+    max-width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
 }
@@ -349,23 +385,16 @@ body {
     color: var(--primary-blue);
 }
 
-.btn-fechar-modal {
-    background: #e74c3c;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
+/* Área física exportada em PNG com largura garantida */
 .print-area-design {
     background: #fff;
     border-radius: 15px;
     padding: 15px;
     box-sizing: border-box;
     border: 1px solid var(--border-gray);
-    width: 100%;
+    width: 380px;
+    min-width: 380px;
+    max-width: 100%;
 }
 
 .header-print {
