@@ -9,6 +9,20 @@ let candidatosDados = {},
         presidente: null
     };
 
+// Ajusta o limite de corte de acordo com a quantidade de caixas de números do cargo
+function encurtarNomeParaPrint(nome, digitos = 2) {
+    if (!nome) return '';
+    const limitesPorDigito = {
+        4: 13, // Deputado Federal (4 caixas: mais estreito)
+        3: 15, // Senador (3 caixas)
+        2: 18  // Governador e Presidente (2 caixas: mais espaço)
+    };
+    const limite = limitesPorDigito[digitos] || 15;
+    
+    if (nome.length <= limite) return nome;
+    return nome.substring(0, limite).trim() + '...';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     fetch('candidatos-sc.json')
         .then(r => r.json())
@@ -170,12 +184,13 @@ function salvarColinhaDefinitivo() {
             blHtml += `<span>${arr[i] || ''}</span>`;
         }
 
-        const nomeExibicao = e ? e.nome : '_______________';
+        // Passa a quantidade de dígitos para definir o limite correto de caracteres
+        const nomeExibicao = e ? encurtarNomeParaPrint(e.nome, cargo.d) : '_______________';
         const partidoExibicao = e ? e.partido : '';
 
         c.innerHTML += `
             <div class="item-cargo fixo">
-                <div class="avatar-placeholder" style="border:3px solid #009c3b;"></div>
+                <div class="avatar-placeholder"></div>
                 <div class="cargo-detalhe">
                     <span class="label-cargo">${cargo.l}</span>
                     <strong class="nome-fixo" title="${e ? e.nome : ''}">${nomeExibicao}</strong>
@@ -199,7 +214,6 @@ function gerarPDFColinha() {
     const e = document.getElementById('area-impressao-conteudo');
     const modal = document.getElementById('modal-impressao');
 
-    // Reseta o scroll para evitar corte por deslocamento de tela
     if (modal) modal.scrollTop = 0;
     window.scrollTo(0, 0);
 
